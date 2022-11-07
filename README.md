@@ -9,7 +9,7 @@ To run the app:
 
 ## [Define and Access the Database](https://flask.palletsprojects.com/en/2.2.x/tutorial/database/)
 
-**Run the `init-db` command:**
+**Run the `init-db` command:**<br>
 `$ flask --app flaskr init-db`
 _There will now be a flaskr.sqlite file in the instance folder in your project._
 
