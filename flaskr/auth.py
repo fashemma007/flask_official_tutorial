@@ -111,3 +111,15 @@ def load_logged_in_user():
 def logout():
     session.clear()
     return redirect(url_for('index'))
+
+def login_required(view):  # creating a decorator for other views
+    # when this is called on a view function, it wraps it
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        # if g.user is None, it redirects to login page, else it 
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+        # continues with the user's request
+        return view(**kwargs)
+
+    return wrapped_view
