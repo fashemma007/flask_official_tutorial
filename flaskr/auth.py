@@ -48,3 +48,44 @@ def register():
         flash(error)
 
     return render_template('auth/register.html')
+
+# @bp.route associates the URL /login with the 
+# login() view function; a visit to /auth/login
+# will call this function
+@bp.route('/login', methods=('GET', 'POST'))
+def login():
+    # if form is submitted, request.method will be 'POST'
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        db = get_db()
+        error = None
+        
+        # db is queried using the given username to search
+        # if the user exists in the database
+        user = db.execute(
+            'SELECT * FROM user WHERE username = ?', (username,)
+        ).fetchone()
+
+        # if no result was gotten i.e. user doesn't exist
+        if user is None:
+            error = 'Incorrect username.'
+
+        # check_password_hash() hashes the provided password
+        # and compares it against the password hash in the database
+        #==========================================================
+        # if user exists but password is wrong
+        elif not check_password_hash(user['password'], password):
+            error = 'Incorrect password.'
+
+        # if there was no error, save session in cookie
+        #====================================================
+        # session is a dict that stores data across requests
+        if error is None:
+            session.clear()
+            session['user_id'] = user['id']
+            return redirect(url_for('index'))
+
+        flash(error)
+
+    return render_template('auth/login.html')
