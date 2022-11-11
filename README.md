@@ -15,7 +15,7 @@ _There will now be a flaskr.sqlite file in the instance folder in your project._
 
 ## [Blueprints and Views](https://flask.palletsprojects.com/en/2.2.x/tutorial/views/)
 
----
+## [Static Files](https://flask.palletsprojects.com/en/2.2.x/tutorial/static/)
 
 ## FUTURE RESOURCES
 
