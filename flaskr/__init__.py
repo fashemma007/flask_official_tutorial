@@ -35,5 +35,12 @@ def create_app(test_config=None):
     # importing & registring auth blueprint
     from . import auth
     app.register_blueprint(auth.bp)
-    
+
+    # importing & registring blog blueprint
+    from . import blog
+    app.register_blueprint(blog.bp)
+
+# app.add_url_rule() works similarly to app.route()
+    app.add_url_rule('/', endpoint='index')
+
     return app
