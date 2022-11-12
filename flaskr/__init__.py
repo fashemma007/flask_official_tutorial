@@ -39,8 +39,9 @@ def create_app(test_config=None):
     # importing & registring blog blueprint
     from . import blog
     app.register_blueprint(blog.bp)
-
-# app.add_url_rule() works similarly to app.route()
+    # app.add_url_rule() works similarly to app.route()
+    # it creates an alternate route to the blog page of our app
+    # with this, both '/' and '/index' would direct to blogs page
     app.add_url_rule('/', endpoint='index')
 
     return app
