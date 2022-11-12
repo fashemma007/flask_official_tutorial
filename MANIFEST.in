@@ -1,0 +1,11 @@
+# MANIFEST.in tells what & where the extra data is.
+
+# This tells Python to copy everything in the static
+# and templates directories, and the schema.sql file
+
+include flaskr/schema.sql
+graft flaskr/static
+graft flaskr/templates
+
+# but to exclude all bytecode files.
+global-exclude *.pyc

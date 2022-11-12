@@ -17,6 +17,15 @@ _There will now be a flaskr.sqlite file in the instance folder in your project._
 
 ## [Static Files](https://flask.palletsprojects.com/en/2.2.x/tutorial/static/)
 
+## [Make the Project Installable](https://flask.palletsprojects.com/en/2.2.x/tutorial/install/)
+
+Install the Project
+Use pip to install your project in the virtual environment.
+
+`$ pip install -e .`
+
+## [Test Coverage](https://flask.palletsprojects.com/en/2.2.x/tutorial/tests/)
+
 ## FUTURE RESOURCES
 
 [Command Line Interface](https://flask.palletsprojects.com/en/2.2.x/cli/)
