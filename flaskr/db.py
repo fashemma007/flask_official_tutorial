@@ -5,11 +5,14 @@ from flask import current_app, g
 
 
 def get_db():
-    if 'db' not in g:
+    """Connect to the application's configured database. The connection
+    is unique for each request and will be reused if this is called
+    again.
+    """
+    if "db" not in g:
         # `g` is used to store data that might be accessed by multiple functions during the request
         g.db = sqlite3.connect(
-            current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
+            current_app.config["DATABASE"], detect_types=sqlite3.PARSE_DECLTYPES
         )
         g.db.row_factory = sqlite3.Row
 
@@ -17,27 +20,35 @@ def get_db():
 
 
 def close_db(e=None):
-    db = g.pop('db', None)
+    """If this request connected to the database, close the
+    connection.
+    """
+    db = g.pop("db", None)
 
     if db is not None:
         db.close()
 
+
 def init_db():
+    """Clear existing data and create new tables."""
     db = get_db()
     # opens a file relative to the flaskr package
-    with current_app.open_resource('schema.sql') as f:
-        db.executescript(f.read().decode('utf8'))
+    with current_app.open_resource("schema.sql") as f:
+        db.executescript(f.read().decode("utf8"))
 
 
-@click.command('init-db')
+@click.command("init-db")
 def init_db_command():
     """Clear the existing data and create new tables."""
     init_db()
-    click.echo('Initialized the database.')
-    
+    click.echo("Initialized the database.")
+
+
 def init_app(app):
-    """function that takes an application and does the registration"""
-    # tells Flask to call that function when cleaning up after 
+    """Register database functions with the Flask app. This is called by
+    the application factory.
+    """
+    # tells Flask to call that function when cleaning up after
     # returning the response
     app.teardown_appcontext(close_db)
     # adds a new command that can be called with the flask command
